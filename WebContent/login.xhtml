@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+	<script src="js/jquery-1.4.1.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" ></link>
+	<title>Theos Store</title>
+</h:head>
+
+<h:body>
+	<h1 id="title">Theos Storehouse</h1>
+
+		<h:form id="loginbox" class="login">
+			<h:panelGrid>
+				<h:outputLabel for="username">Username</h:outputLabel>
+				<h:inputText id="username" value="#{loginBean.loginName}"
+					required="true">
+					<f:ajax event="blur" render="usernameMessage" />
+				</h:inputText>
+				<h:message id="usernameMessage" for="username" />
+
+				<h:outputLabel for="password">Password</h:outputLabel>
+				<h:inputSecret id="password" value="#{loginBean.loginPassword}"
+					required="true" redisplay="true">
+					<f:ajax event="blur" render="passwordMessage" />
+				</h:inputSecret>
+				<h:message id="passwordMessage" for="password" />
+
+				<h:panelGroup />
+				<h:commandButton action="#{loginCtrl.login}" value="Login" />
+				<h:messages globalOnly="true" layout="table" />
+
+			</h:panelGrid>
+		</h:form>
+		
+</h:body>
+
+</html>
+

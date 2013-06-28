@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" ></link>
+	<title>Theos Store</title>
+</h:head>
+
+<h:body>
+
+	<h1 id="title">Theos Storehouse</h1>
+
+	<h:form>
+		<p:dataTable var="order" value="#{info.orders}">
+
+			<f:facet name="header">  
+            	Pending Orders for #{info.customer.firstName} #{info.customer.lastName}
+        	</f:facet>
+
+			<p:column headerText="Order Id">
+				<h:outputText value="#{order.orderId}" />
+			</p:column>
+
+			<p:column headerText="Order Description">
+				<h:outputText value="#{order.orderDesc}" />
+			</p:column>
+
+			
+			<p:column headerText="Order Items">
+				<p:dataList value="#{order.items}" var="item" type="definition">
+					
+					<f:facet name="description">
+						<h:outputText value="#{item.itemName}" style="font-style:bold" />
+					</f:facet>
+
+					<f:facet name="description">
+        				<h:outputText value="#{item.itemDesc}"
+							style="font-style:italic" />
+					</f:facet>
+
+				</p:dataList>
+			</p:column>
+			
+		</p:dataTable>
+	</h:form>
+
+</h:body>
+
+</html>
+

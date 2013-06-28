@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" ></link>
+	<title>Theos Store</title>
+</h:head>
+
+
+<h:body>
+	<h1 id="title">Theos Storehouse</h1>
+	
+	<h:form id="form" >  
+  
+    <p:growl id="growl" showDetail="true"/>  
+  
+    <p:dataTable id="items" var="item" value="#{shopCtrl.cachedItems}" paginator="true" rows="10" selection="#{shopCtrl.selectedItem}" selectionMode="single" rowKey="#{item.itemId}">    
+        <p:ajax event="rowSelect" update=":form:dialog" oncomplete="itemDialog.show()" />
+ 
+        <f:facet name="header">  
+            <h2>Available Items</h2>
+        </f:facet>  
+  
+        <p:column headerText="Name">  
+            #{item.itemName}  
+        </p:column>  
+  
+        <p:column headerText="Short Description" >  
+            #{item.itemDesc}  
+        </p:column>
+
+     	<p:column style="width:2%">  
+                <p:commandButton id="addButton" action="#{shopCtrl.AddItem}" update="@form"  value="Add" title="Add item to cart">  
+                <f:setPropertyActionListener value="#{item}" target="#{shopCtrl.selectedItem}" />  
+            </p:commandButton>  
+        </p:column>
+        
+     	<p:column style="width:2%">  
+                <p:commandButton id="removeButton" action="#{shopCtrl.RemoveItem}" update=":form:growl"  value="Remove" title="Remove item from cart">  
+                <f:setPropertyActionListener value="#{item}" target="#{shopCtrl.selectedItem}" />  
+            </p:commandButton>  
+        </p:column>
+        
+        <f:facet name="footer">  
+            <p:commandButton id="checkoutButton" value="To Checkout" action="#{shopCtrl.confirmWares}" />  
+        </f:facet>  
+
+    </p:dataTable>  
+  
+  
+    <p:dialog id="dialog" header="Item Details" widgetVar="itemDialog" resizable="false"  
+                showEffect="fade" hideEffect="fade" >  
+  
+        <h:panelGrid id="display" columns="2" cellpadding="4">  
+  
+            <f:facet name="header">  
+                Image here
+            </f:facet>  
+  
+            <h:outputText value="Item Id:" />  
+            <h:outputText value="#{shopCtrl.selectedItem.itemId}" />  
+  
+            <h:outputText value="Name:" />  
+            <h:outputText value="#{shopCtrl.selectedItem.itemName}" />  
+  
+            <h:outputText value="Short Description:" />  
+            <h:outputText value="#{shopCtrl.selectedItem.itemDesc}" />  
+
+        </h:panelGrid>  
+    </p:dialog>  
+  
+</h:form>
+	
+	
+</h:body>
+
+</html>
